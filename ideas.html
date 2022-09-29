@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>practice</title>
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+        <style>
+            .tabs{
+                border:1px solid #cccccc;
+                display: flex;
+                margin-top: 70px;
+            }
+            .tabs__sidebar{
+                width:125px;
+                 flex-shrink: 0;
+                 background: #cccccc;
+            }
+            .tabs__button{
+                display: block;
+                padding: 10px;
+                background: #eeeeee;
+                border: none;
+                width: 100%;
+                outline: none;
+                cursor: pointer;
+            }
+            .tabs__button:active{
+                background: #dddddd;
+
+            }
+            .tabs__button:not(:last-of-type){
+                border-bottom: 1px solid #cccccc;
+            }
+            .tabs__button--active{
+                font-weight: bold;
+                border-right: 2px solid #e6a9e1;
+                background: #dddddd;
+            }
+            .tabs__content{
+                padding:15px;
+                font-size: 0.8rem;
+                display: none;
+            }
+            .tabs__content--active{
+                display: block;
+
+            }
+            .your-face {
+	 grid-area: your-face;
+	 background: #fff;
+	 border: 2px solid;
+	 cursor : pointer;
+	 position: relative;
+	 max-height : 300px;
+	 overflow: hidden;
+}
+ .your-face img {
+	 width: 100%;
+	 height: 100%;
+	 object-fit: cover;
+	 z-index: 10;
+	 position: relative;
+	 visibility: hidden;
+}
+ .your-face .image-persuader {
+	 position: absolute;
+	 top: 40%;
+	 text-align: center;
+	 width: 70%;
+	 left: 15%;
+}
+ .your-face input {
+	 display: none;
+        </style>
+    </head>
+    <body>
+       <div class="container">
+          <div class="left">
+        	<label class="your-face" id="image-form" for="image-input">
+                <input type="file" id="image-input"/>
+                <div class="image-persuader">Upload Image Here</div><img id="imager" src="#" alt="Your Image Here"/>
+              </label>
+
+        </div>
+        <div class="tabs">
+           <div class="tabs__sidebar">
+            <button class="tabs__button tabs__button--active" data-for-tab="1">Personal statement</button>
+            <button class="tabs__button" data-for-tab="2">Education</button>
+            <button class="tabs__button" data-for-tab="3">Hobbies</button>
+           </div> 
+           <div class="tabs__content tabs__content--active" data-tab="1">
+            <h2> Personal Statement</h2>
+            <textarea id="" name="" rows="10" cols="100"> Please write your personal statement here</textarea>
+           </div>
+           <div class="tabs__content" data-tab="2">
+            <h2> Education</h2>
+            <label> Current Level of Education:</label>
+            <select>
+                <option value="default">Select your level</option>
+                <option value="Masters">Masters Degree</option>
+                <option value="Bachelors">Bachelors Degree</option>
+                <option value="A-Level">A-Level Diploma</option>
+                <option value="O-level">O-level Diploma</option>
+                <option value="PLE">PLE</option>
+
+            </select>
+            <form>
+                <label for="university">University:</label><br>
+                <input type="text" id="university" name="University" value="Eg.Makerere University"><br>
+                <label for="hschool">Highschool:</label><br>
+                <input type="text" id="hschool" name="hschool" value="Eg.Ntare Highschool"><br>
+                <label for="hschool">Primary:</label><br>
+                <input type="text" id="pschool" name="pschool" value="Eg.Greenhill Academy"><br><br>
+                <input type="submit" value="Submit">
+              </form>
+           </div>
+           <div class="tabs__content" data-tab="3">
+            <h2> Hobbies</h2>
+            <textarea id="" name="" rows="10" cols="100"> Please write your personal statement here</textarea>
+           </div>
+        </div>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"> 
+         function setupTabs(){
+            document.querySelectorAll(".tabs__button").forEach(button =>{
+                button.addEventListener("click",() =>{
+                    const sideBar=button.parentElement;
+                    const tabsContainer=sideBar.parentElement;
+                    const tabNumber= button.dataset.forTab;
+                    const tabToActivate= tabsContainer.querySelector(`.tabs__content[data-tab="${tabNumber}"]`);
+
+                   tabsContainer.querySelectorAll(".tabs__button").forEach(tab =>{
+                    tab.classList.remove("tabs__content--active") 
+                   });
+                   button.classList.add("tabs__button--active");
+                   tabToActivate.classList.add("tabs__content--active");
+                });
+            });
+         }
+         document.addEventListener("DOMContentLoaded", () =>{
+            setupTabs();
+         });
+         var reader = new FileReader();
+reader.onload = function(e) {
+	$("#imager").attr("src", e.target.result);
+};
+
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		$("#imager").css("visibility",'visible');
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+$("#image-input").change(function() {
+	readURL(this);
+});
+ 
+
+        </script>
+    </body>
+</html>
